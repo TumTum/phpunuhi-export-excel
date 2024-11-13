@@ -24,7 +24,10 @@
     "autoload": {
         "psr-4": {
             "Tumtum\\PhpunuhiExportExcel\\": "src/"
-        }
+        },
+        "files": [
+            "src/RegisterExporter.php"
+        ]
     },
     "authors": [
         {
