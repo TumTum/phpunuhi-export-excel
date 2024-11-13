@@ -1,0 +1,35 @@
+{
+    "name": "tumtum/phpunuhi-export-excel",
+    "description": "This extension for the phpunuhi project enables translations to be stored in an Excel table",
+    "homepage": "https://github.com/TumTum/phpunuhi-export-excel",
+    "require": {
+        "spatie/simple-excel": "^3.7"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.64",
+        "infection/infection": "^0.29.8",
+        "phpcompatibility/php-compatibility": "^9.3",
+        "phpstan/phpstan": "*",
+        "phpunit/phpunit": "^9.6",
+        "povils/phpmnd": "^3.3",
+        "rector/rector": "1.2.10",
+        "roave/security-advisories": "dev-latest",
+        "rregeer/phpunit-coverage-check": "^0.3.1",
+        "spaze/phpstan-disallowed-calls": "^3.0",
+        "squizlabs/php_codesniffer": "^3.7",
+        "staabm/phpstan-todo-by": "^0.1.16",
+        "svrunit/svrunit": "dev-main"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Tumtum\\PhpunuhiExportExcel\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Tobias Matthaiou",
+            "email": "developer@tumtum.de"
+        }
+    ]
+}
