@@ -11,6 +11,28 @@ Excel-Tabelle. Mit dieser Funktion können alle Übersetzungsdaten bequem in ein
 gespeichert und verwaltet werden. Ideal, um Übersetzungen übersichtlich zu exportieren und 
 weiterzuverarbeiten.
 
+## Anleitung zur Benutzung
+
+Mit diesem Befehl wird eine Excel-Datei erstellt, 
+die nach dem Muster `TranslationProject_[HEUTIGES DATUM YYMMTT].xlsx` heißt.
+
+```shell
+./bin/phpunuhi export --format=excel
+```
+
+### Optional: Bestimmte Übersetzungssets ignorieren
+
+Falls du einige Übersetzungssets ausschließen möchtest, kannst du die Option `--excel-skip-sets` verwenden. 
+Dabei kannst du eine Liste von Sets angeben, getrennt durch ein Komma, oder ein Muster nutzen (mit %), 
+um alle Sets auszuschließen, die dem Muster entsprechen.
+
+```shell
+./bin/phpunuhi export --format=excel --excel-skip-sets=storefront,%administration%,Swag%
+```
+
+In diesem Beispiel wird der Set `storefront`, alle Sets, die `administration` enthalten und 
+mit `Swag` beginnen, ignoriert.
+
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.

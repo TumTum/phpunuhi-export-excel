@@ -6,10 +6,17 @@ namespace Tumtum\PhpunuhiExportExcel\Exchange;
 
 use PHPUnuhi\Bundles\Exchange\ExchangeInterface;
 use PHPUnuhi\Bundles\Exchange\ImportResult;
+use PHPUnuhi\Models\Command\CommandOption;
 use PHPUnuhi\Models\Translation\TranslationSet;
+use Tumtum\PhpunuhiExportExcel\Exchange\Services\ExcelExporter;
+use Tumtum\PhpunuhiExportExcel\Exchange\Services\SkipSet;
 
 class ExcelExchange implements ExchangeInterface
 {
+    private ExcelExporter $excelExporter;
+
+    private SkipSet $skipSet;
+
     public function getName(): string
     {
         return 'excel';
@@ -17,21 +24,37 @@ class ExcelExchange implements ExchangeInterface
 
     public function getOptions(): array
     {
-        return [];
+        return [
+            'test' => new CommandOption('excel-skip-sets', true),
+        ];
     }
 
     public function setOptionValues(array $options): void
     {
-        // TODO: Implement setOptionValues() method.
+        $this->skipSet = new SkipSet($options['excel-skip-sets'] ?? '');
     }
 
     public function export(TranslationSet $set, string $outputDir, bool $onlyEmpty): void
     {
-        // TODO: Implement export() method.
+        if ($this->skipSet->byName($set->getName())) {
+            return;
+        }
+
+        if (!isset($this->excelExporter)) {
+            $this->excelExporter = new ExcelExporter($outputDir, $onlyEmpty);
+        }
+        $this->excelExporter->export($set);
     }
 
     public function import(string $filename): ImportResult
     {
         return new ImportResult([]);
+    }
+
+    public function __destruct()
+    {
+        if (isset($this->excelExporter)) {
+            $this->excelExporter->close();
+        }
     }
 }
