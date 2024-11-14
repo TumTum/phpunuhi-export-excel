@@ -10,3 +10,7 @@ Diese Erweiterung für das Projekt [phpunuhi](https://github.com/boxblinkracer/p
 Excel-Tabelle. Mit dieser Funktion können alle Übersetzungsdaten bequem in einer Excel-Datei 
 gespeichert und verwaltet werden. Ideal, um Übersetzungen übersichtlich zu exportieren und 
 weiterzuverarbeiten.
+
+## License
+
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
