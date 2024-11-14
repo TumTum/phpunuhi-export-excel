@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Tumtum\PhpunuhiExportExcel\Exchange\Services;
+namespace Tumtum\PhpunuhiExportExcel\Tests\Exchange\Services;
 
 use PHPUnit\Framework\TestCase;
 use PHPUnuhi\Models\Translation\TranslationSet;
+use Tumtum\PhpunuhiExportExcel\Exchange\Services\ExcelWriter;
 
 /**
  * @group Services

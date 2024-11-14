@@ -8,6 +8,10 @@ use PHPUnuhi\Bundles\Exchange\ExchangeInterface;
 use PHPUnuhi\Bundles\Exchange\ImportResult;
 use PHPUnuhi\Models\Command\CommandOption;
 use PHPUnuhi\Models\Translation\TranslationSet;
+use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Console\Style\SymfonyStyle;
+use Tumtum\PhpunuhiExportExcel\Exchange\Services\ExcelReader;
 use Tumtum\PhpunuhiExportExcel\Exchange\Services\ExcelWriter;
 use Tumtum\PhpunuhiExportExcel\Exchange\Services\SkipSet;
 
@@ -17,6 +21,8 @@ class ExcelExchange implements ExchangeInterface
 
     private SkipSet $skipSet;
 
+    private string $selectedSet;
+
     public function getName(): string
     {
         return 'excel';
@@ -25,13 +31,14 @@ class ExcelExchange implements ExchangeInterface
     public function getOptions(): array
     {
         return [
-            'test' => new CommandOption('excel-skip-sets', true),
+            new CommandOption('excel-skip-sets', true),
         ];
     }
 
     public function setOptionValues(array $options): void
     {
         $this->skipSet = new SkipSet($options['excel-skip-sets'] ?? '');
+        $this->selectedSet = $options['set'] ?? '';
     }
 
     public function export(TranslationSet $set, string $outputDir, bool $onlyEmpty): void
@@ -48,7 +55,8 @@ class ExcelExchange implements ExchangeInterface
 
     public function import(string $filename): ImportResult
     {
-        return new ImportResult([]);
+        $io = new SymfonyStyle(new ArrayInput([]), new ConsoleOutput());
+        return (new ExcelReader($io))->read($filename, $this->selectedSet);
     }
 
     public function __destruct()
