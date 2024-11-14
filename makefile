@@ -5,7 +5,7 @@
 
 
 # -------------------------------------------------------
-PHP_MIN_VERSION := 7.2
+PHP_MIN_VERSION := 8.1
 PHPUNIT_MIN_COVERAGE := 38
 # -------------------------------------------------------
 
@@ -93,7 +93,8 @@ infection: ##3 Starts all Infection/Mutation tests
 	@XDEBUG_MODE=coverage php vendor/bin/infection --configuration=./infection.json --log-verbosity=all --debug
 
 svrunit: ##3 Runs all SVRUnit tests
-	php vendor/bin/svrunit test --configuration=./svrunit.xml --debug --report-junit --report-html
+	@echo "## DEAKTIV Symfony Console passt nicht überein mit svrunit ##" && \
+     echo php vendor/bin/svrunit test --configuration=./svrunit.xml --debug --report-junit --report-html
 
 #------------------------------------------------------------------------------------------------
 

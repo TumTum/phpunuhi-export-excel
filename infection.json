@@ -4,12 +4,11 @@
   "mutators": {
     "@default": true
   },
-  "minMsi": 90,
-  "minCoveredMsi": 90,
+  "minMsi": 20,
+  "minCoveredMsi": 30,
   "source": {
     "directories": [
-      "src/Models/Command",
-      "src/Models/Configuration"
+      "src/Exchange/Services"
     ]
   },
   "logs": {

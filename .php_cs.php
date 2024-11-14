@@ -1,6 +1,6 @@
 <?php
 
-return PhpCsFixer\Config::create()
+return (new PhpCsFixer\Config())
     ->setUsingCache(false)
     ->setRules([
         '@PSR2' => true,
@@ -19,7 +19,7 @@ return PhpCsFixer\Config::create()
         'concat_space' => ['spacing' => 'one'],
     ])
     ->setFinder(
-        PhpCsFixer\Finder::create()
+        (new PhpCsFixer\Finder())
             ->exclude(['./src/vendor'])
             ->in(__DIR__ . '/src')
             ->in(__DIR__ . '/tests/phpunit')

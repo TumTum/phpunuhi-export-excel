@@ -11,3 +11,4 @@
 /svrunit.phar
 /.svrunit
 /tests/svrunit/.exports
+composer.lock

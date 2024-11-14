@@ -12,8 +12,6 @@ use Rector\ValueObject\PhpVersion;
 return static function (RectorConfig $rectorConfig): void {
 
     $rectorConfig->paths([
-        __DIR__ . '/bin',
-        __DIR__ . '/scripts',
         __DIR__ . '/src',
         __DIR__ . '/tests/phpunit',
     ]);
