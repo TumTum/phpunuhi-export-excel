@@ -13,6 +13,9 @@ weiterzuverarbeiten.
 
 ## Anleitung zur Benutzung
 
+
+### Sprachen expotieren und in eine Excel-Datei speichern
+
 Mit diesem Befehl wird eine Excel-Datei erstellt, 
 die nach dem Muster `TranslationProject_[HEUTIGES DATUM YYMMTT].xlsx` heißt.
 
@@ -20,7 +23,7 @@ die nach dem Muster `TranslationProject_[HEUTIGES DATUM YYMMTT].xlsx` heißt.
 ./bin/phpunuhi export --format=excel
 ```
 
-### Optional: Bestimmte Übersetzungssets ignorieren
+#### Optional: Bestimmte Übersetzungssets ignorieren
 
 Falls du einige Übersetzungssets ausschließen möchtest, kannst du die Option `--excel-skip-sets` verwenden. 
 Dabei kannst du eine Liste von Sets angeben, getrennt durch ein Komma, oder ein Muster nutzen (mit %), 
@@ -32,6 +35,14 @@ um alle Sets auszuschließen, die dem Muster entsprechen.
 
 In diesem Beispiel wird der Set `storefront`, alle Sets, die `administration` enthalten und 
 mit `Swag` beginnen, ignoriert.
+
+### Sprachen importieren aus einer Excel-Datei
+
+Man muss pro set es Impotieren und jeder Set ist eine Sheet in Datei
+
+```shell
+./bin/phpunuhi import --format=excel --file=import/TranslationProject_YYMMDD.xlsx --set=storefront
+```
 
 ## License
 
