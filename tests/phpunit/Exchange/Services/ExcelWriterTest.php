@@ -10,15 +10,15 @@ use PHPUnuhi\Models\Translation\TranslationSet;
 /**
  * @group Services
  */
-class ExcelExporterTest extends TestCase
+class ExcelWriterTest extends TestCase
 {
     /**
-     * Test export functionality of ExcelExporter
+     * Test export functionality of ExcelWriter
      */
     public function testExport(): void
     {
         //Assert
-        $exporter = new ExcelExporter(__DIR__ . '/../../../playground/', false);
+        $exporter = new ExcelWriter(__DIR__ . '/../../../playground/', false);
 
         $set = $this->getMockBuilder(TranslationSet::class)
             ->disableOriginalConstructor()

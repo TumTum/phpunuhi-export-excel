@@ -8,12 +8,12 @@ use PHPUnuhi\Bundles\Exchange\ExchangeInterface;
 use PHPUnuhi\Bundles\Exchange\ImportResult;
 use PHPUnuhi\Models\Command\CommandOption;
 use PHPUnuhi\Models\Translation\TranslationSet;
-use Tumtum\PhpunuhiExportExcel\Exchange\Services\ExcelExporter;
+use Tumtum\PhpunuhiExportExcel\Exchange\Services\ExcelWriter;
 use Tumtum\PhpunuhiExportExcel\Exchange\Services\SkipSet;
 
 class ExcelExchange implements ExchangeInterface
 {
-    private ExcelExporter $excelExporter;
+    private ExcelWriter $excelExporter;
 
     private SkipSet $skipSet;
 
@@ -41,7 +41,7 @@ class ExcelExchange implements ExchangeInterface
         }
 
         if (!isset($this->excelExporter)) {
-            $this->excelExporter = new ExcelExporter($outputDir, $onlyEmpty);
+            $this->excelExporter = new ExcelWriter($outputDir, $onlyEmpty);
         }
         $this->excelExporter->export($set);
     }
