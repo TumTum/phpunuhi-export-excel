@@ -5,7 +5,7 @@
     "require": {
         "php": "^8.1",
         "boxblinkracer/phpunuhi": "^1.9.0",
-        "openspout/openspout": "^4.26"
+        "openspout/openspout": "^4.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.64",
