@@ -2,7 +2,7 @@ Disclaimer
 ==========
 This project is an independent work and is not affiliated with, 
 endorsed by, or sponsored by any third-party organizations mentioned herein. 
-All trademarks referenced (such as "Excel" by Microsoft, "phpunuhi" and "spatie/simple-excel") are 
+All trademarks referenced (such as "Excel" by Microsoft, "phpunuhi" and "openspout/openspout") are 
 the property of their respective owners, used here solely for 
 descriptive purposes.
 

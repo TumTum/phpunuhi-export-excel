@@ -20,8 +20,6 @@ use Tumtum\PhpunuhiExportExcel\Exchange\Strings\CellValue;
 
 class ExcelReader
 {
-
-
     public function __construct(
         private SymfonyStyle $io,
     ) {

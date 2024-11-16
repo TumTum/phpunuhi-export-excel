@@ -4,16 +4,17 @@ declare(strict_types=1);
 
 namespace Tumtum\PhpunuhiExportExcel\Exchange\Services;
 
+use OpenSpout\Common\Entity\Row;
 use OpenSpout\Common\Entity\Style\Border;
 use OpenSpout\Common\Entity\Style\BorderPart;
 use OpenSpout\Common\Entity\Style\CellAlignment;
 use OpenSpout\Common\Entity\Style\Color;
 use OpenSpout\Common\Entity\Style\Style;
 use OpenSpout\Writer\XLSX\Entity\SheetView;
+use OpenSpout\Writer\XLSX\Options;
 use OpenSpout\Writer\XLSX\Writer;
 use PHPUnuhi\Models\Translation\TranslationSet;
 use PHPUnuhi\Services\GroupName\GroupNameService;
-use Spatie\SimpleExcel\SimpleExcelWriter;
 use Tumtum\PhpunuhiExportExcel\Exchange\Strings\CellValue;
 
 class ExcelWriter
@@ -23,47 +24,49 @@ class ExcelWriter
     private const GREEN = '9FD77F';
     private bool $onlyEmpty;
 
-    /**
-     * @var string[]
-     */
-    private array $sets = [];
+    private int $numberSheet = 0;
 
-    private SimpleExcelWriter $excelWriter;
+    private Writer $excelWriter;
 
     public function __construct(string $outputDir, bool $onlyEmpty)
     {
         $date = date("ymd");
         $filename = $outputDir . DIRECTORY_SEPARATOR . "TranslationProject_{$date}.xlsx";
 
-        $this->excelWriter = SimpleExcelWriter::create(
-            $filename,
-            '',
-            function (Writer $writer): void {
-                $options = $writer->getOptions();
-                $options->DEFAULT_COLUMN_WIDTH = 40; // set default width
-                $options->DEFAULT_ROW_HEIGHT = 20; // set default width
-                $options->setColumnWidth(70, 1);
-                $options->setColumnWidth(20, 2);
-            }
-        )->setHeaderStyle($this->createHeaderStyle());
+        $options = new Options();
+        $options->DEFAULT_COLUMN_WIDTH = 40;
+        $options->DEFAULT_ROW_HEIGHT = 20;
+        $options->setColumnWidth(70, 1);
+        $options->setColumnWidth(20, 2);
+
+        $this->excelWriter = (new Writer($options));
+        $this->excelWriter->openToFile($filename);
 
         $this->onlyEmpty = $onlyEmpty;
     }
 
     public function export(TranslationSet $set): void
     {
-        $cheatname = substr($set->getName(), -31);
-
-        if ($this->sets !== []) {
-            $this->excelWriter->addNewSheetAndMakeItCurrent();
-        }
-
-        $this->sets[] = $cheatname;
-        $this->excelWriter->nameCurrentSheet($cheatname);
-        $this->getWriter()?->getCurrentSheet()->setSheetView($this->createSheetView());
+        $sheetName = substr($set->getName(), -31);
 
         $groupNameService = new GroupNameService();
         $cellValue = new CellValue();
+
+        if ($this->numberSheet++ !== 0) {
+            $this->excelWriter->addNewSheetAndMakeItCurrent();
+        }
+
+        $sheet = $this->excelWriter->getCurrentSheet();
+        $sheet->setName($sheetName);
+        $sheet->setSheetView($this->createSheetView());
+
+        if ($sheet->getWrittenRowCount() === 0) {
+            $headTitles = ['Key', 'Group'];
+            foreach ($set->getLocales() as $locale) {
+                $headTitles[] = $locale->getName();
+            }
+            $this->excelWriter->addRow(Row::fromValuesWithStyles($headTitles, $this->createHeaderStyle()));
+        }
 
         $style = (new Style())
             ->setShouldWrapText(false);
@@ -71,8 +74,6 @@ class ExcelWriter
         $styleB = (clone $style)
             ->setBorder($this->createBorderStyle())
             ->setBackgroundColor(self::LIGHT_GREEN_PLUS);
-
-        $index = 0;
 
         foreach ($set->getAllTranslationIDs() as $id) {
             $entry = [];
@@ -89,10 +90,9 @@ class ExcelWriter
                 $entry[$locale->getName()] = $cellValue->protect($translation->getValue());
             }
 
-            $currentStyle = $index++ % 2 == 0 ? $style : $styleB;
-            $this->excelWriter->addRow($entry, $currentStyle);
+            $currentStyle = $sheet->getWrittenRowCount() % 2 == 0 ? $style : $styleB;
+            $this->excelWriter->addRow(Row::fromValuesWithStyles($entry, $currentStyle));
         }
-
     }
 
     private function createHeaderStyle(): Style
@@ -127,14 +127,5 @@ class ExcelWriter
         if (isset($this->excelWriter)) {
             $this->excelWriter->close();
         }
-    }
-
-    private function getWriter(): ?Writer
-    {
-        if ($this->excelWriter->getWriter() instanceof Writer) {
-            return $this->excelWriter->getWriter();
-        }
-
-        return null;
     }
 }

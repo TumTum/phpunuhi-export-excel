@@ -6,6 +6,7 @@ namespace Tumtum\PhpunuhiExportExcel\Tests\Exchange\Services;
 
 use Exception;
 use PHPUnit\Framework\TestCase;
+use PHPUnuhi\Bundles\Exchange\ImportResult;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Tumtum\PhpunuhiExportExcel\Exchange\Services\ExcelReader;
 
@@ -40,17 +41,23 @@ class ExcelReaderTest extends TestCase
     /**
      * Test that the read() method throws an exception if there is no sheet available.
      */
-    //    public function testReadThrowsExceptionIfNoSheetIsAvailable(): void
-    //    {
-    //        $this->markTestSkipped('This test has not been implemented yet.');
-    //    }
+    public function testReadThrowsExceptionIfNoSheetIsAvailable(): void
+    {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage("There is no sheet available: UnknownSet");
+
+        $this->excelReader->read(__DIR__ . '/../../../Clam/TranslationProject_PHPUnit.xlsx', 'UnknownSet');
+    }
 
     /**
      * Test that the read() method returns ImportResult with expected entries
      * when valid filepath and setId are provided
      */
-    //    public function testReadWhenValidFileAndSetIdAreGiven(): void
-    //    {
-    //        $this->markTestSkipped('This test has not been implemented yet.');
-    //    }
+    public function testReadWhenValidFileAndSetIdAreGiven(): void
+    {
+        $actual = $this->excelReader->read(__DIR__ . '/../../../Clam/TranslationProject_PHPUnit.xlsx', 'Set SheetName');
+
+        $this->assertInstanceOf(ImportResult::class, $actual);
+        $this->assertCount(1, $actual->getEntries());
+    }
 }
