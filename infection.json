@@ -4,11 +4,12 @@
   "mutators": {
     "@default": true
   },
-  "minMsi": 20,
-  "minCoveredMsi": 30,
+  "minMsi": 44,
+  "minCoveredMsi": 46,
   "source": {
     "directories": [
-      "src/Exchange/Services"
+      "src/Exchange/Services",
+      "src/Exchange/Strings"
     ]
   },
   "logs": {

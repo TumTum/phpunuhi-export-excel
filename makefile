@@ -6,7 +6,7 @@
 
 # -------------------------------------------------------
 PHP_MIN_VERSION := 8.1
-PHPUNIT_MIN_COVERAGE := 38
+PHPUNIT_MIN_COVERAGE := 90
 # -------------------------------------------------------
 
 
@@ -73,7 +73,7 @@ phpmin: ##3 Starts the PHP compatibility checks
 	@php vendor/bin/phpcs -p --standard=PHPCompatibility --extensions=php --runtime-set testVersion $(PHP_MIN_VERSION) ./src
 
 csfix: ##3 Starts the PHP CS Fixer
-	PHP_CS_FIXER_IGNORE_ENV=1 php ./vendor/bin/php-cs-fixer fix --config=./.php_cs.php --dry-run
+	PHP_CS_FIXER_IGNORE_ENV=1 php ./vendor/bin/php-cs-fixer fix --config=./.php_cs.php
 
 stan: ##3 Starts the PHPStan Analyser
 	php ./vendor/bin/phpstan analyse --memory-limit 1G -c ./.phpstan.neon

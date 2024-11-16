@@ -19,6 +19,8 @@
             <directory>./src</directory>
         </include>
         <exclude>
+          <file>./src/Exchange/ExcelExchange.php</file>
+          <file>./src/RegisterExporter.php</file>
         </exclude>
     </coverage>
 

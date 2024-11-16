@@ -7,6 +7,7 @@ namespace Tumtum\PhpunuhiExportExcel\Tests\Exchange\Services;
 use PHPUnit\Framework\TestCase;
 use PHPUnuhi\Models\Translation\TranslationSet;
 use Tumtum\PhpunuhiExportExcel\Exchange\Services\ExcelWriter;
+use PHPUnuhi\Models\Translation\Locale;
 
 /**
  * @group Services
@@ -21,6 +22,7 @@ class ExcelWriterTest extends TestCase
         //Assert
         $exporter = new ExcelWriter(__DIR__ . '/../../../playground/', false);
 
+        // Mock a Set with Locales
         $set = $this->getMockBuilder(TranslationSet::class)
             ->disableOriginalConstructor()
             ->getMock()
@@ -28,7 +30,20 @@ class ExcelWriterTest extends TestCase
 
         $set->expects($this->once())
             ->method('getName')
-            ->willReturn('SheetName');
+            ->willReturn('Set SheetName');
+
+        $set->expects($this->once())
+            ->method('getAllTranslationIDs')
+            ->willReturn([
+                'group--phpunit.translation.path'
+            ]);
+
+        $locale = new Locale('de-DE', true, '/dev/null', 'main');
+        $locale->addTranslation('translation.path', 'PHPUnit loream ...', 'phpunit');
+
+        $set->expects($this->any())
+            ->method('getLocales')
+            ->willReturn([$locale]);
 
         //Act
         $exporter->export($set);
