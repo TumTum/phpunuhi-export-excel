@@ -13,7 +13,7 @@ weiterzuverarbeiten.
 
 ## Anleitung zur Benutzung
 
-## Instalation
+## Installation
 
 Die Extension wird automatisch bei phpunuhi registriert und steht anschließend unmittelbar zur Verfügung.
 
