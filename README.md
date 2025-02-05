@@ -13,11 +13,20 @@ weiterzuverarbeiten.
 
 ## Anleitung zur Benutzung
 
+## Instalation
+
+Die Extension wird automatisch bei phpunuhi registriert und steht anschließend unmittelbar zur Verfügung.
+
+```shell
+composer require tumtum/phpunuhi-export-excel
+```
 
 ### Sprachen expotieren und in eine Excel-Datei speichern
 
 Mit diesem Befehl wird eine Excel-Datei erstellt, 
 die nach dem Muster `TranslationProject_[HEUTIGES DATUM YYMMTT].xlsx` heißt.
+
+Jedem Übersetzungsset entspricht ein eigenes Blatt.
 
 ```shell
 ./bin/phpunuhi export --format=excel
@@ -38,7 +47,8 @@ mit `Swag` beginnen, ignoriert.
 
 ### Sprachen importieren aus einer Excel-Datei
 
-Man muss pro set es Impotieren und jeder Set ist eine Sheet in Datei
+Jedes Übersetzungsset muss separat importiert werden, wobei jedes Übersetzungsset in der Excel-Datei 
+ein eigenes Blatt ist.
 
 ```shell
 ./bin/phpunuhi import --format=excel --file=import/TranslationProject_YYMMDD.xlsx --set=storefront
