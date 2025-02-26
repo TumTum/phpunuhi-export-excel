@@ -8,6 +8,7 @@ use OpenSpout\Common\Entity\Row;
 use OpenSpout\Common\Entity\Style\Border;
 use OpenSpout\Common\Entity\Style\BorderPart;
 use OpenSpout\Common\Entity\Style\CellAlignment;
+use OpenSpout\Common\Entity\Style\CellVerticalAlignment;
 use OpenSpout\Common\Entity\Style\Color;
 use OpenSpout\Common\Entity\Style\Style;
 use OpenSpout\Writer\XLSX\Entity\SheetView;
@@ -69,7 +70,8 @@ class ExcelWriter
         }
 
         $style = (new Style())
-            ->setShouldWrapText(false);
+            ->setShouldWrapText(true)
+            ->setCellVerticalAlignment(CellVerticalAlignment::TOP);
 
         $styleB = (clone $style)
             ->setBorder($this->createBorderStyle())

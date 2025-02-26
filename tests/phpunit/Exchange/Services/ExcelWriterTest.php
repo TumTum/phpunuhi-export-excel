@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Tumtum\PhpunuhiExportExcel\Tests\Exchange\Services;
 
 use PHPUnit\Framework\TestCase;
+use PHPUnuhi\Models\Translation\Locale;
 use PHPUnuhi\Models\Translation\TranslationSet;
 use Tumtum\PhpunuhiExportExcel\Exchange\Services\ExcelWriter;
-use PHPUnuhi\Models\Translation\Locale;
 
 /**
  * @group Services
